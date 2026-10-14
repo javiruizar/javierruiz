@@ -18,18 +18,18 @@ Pasos en orden. Marca cada casilla al terminarla. Si algo no cuadra, para y aví
 
 ## 3. GitHub
 - [ ] Haz tu primer commit y súbelo a un repositorio (puede ser privado).
-- [ ] Comprueba antes del `git add` que **`.env.local` no aparece** en `git status` (está ignorado; `.env.example` sí debe aparecer y sin claves reales).
+- [ ] Comprueba antes del `git add` que **`.env.local` no aparece** en `git status` (está ignorado por git).
 
 ## 4. Vercel
 - [ ] Quita `javierruiz.org` (y `www`) del proyecto Planeta Viaje: *Project → Settings → Domains → Remove*.
-- [ ] *Add New → Project* → importa el repositorio. Framework: Next.js (se detecta solo). No cambies los comandos.
+- [ ] *Add New → Project* → importa el repositorio. Framework: Next.js (se detecta solo). No cambies los comandos: Vercel detecta pnpm por `pnpm-lock.yaml`.
 - [ ] *Settings → Environment Variables* (entorno **Production** y **Preview**):
 
   | Variable | Valor |
   |---|---|
   | `RESEND_API_KEY` | tu clave `re_…` |
   | `CONTACT_TO_EMAIL` | `javiruizar@gmail.com` |
-  | `CONTACT_FROM_EMAIL` | `Web javierruiz.org <noreply@javierruiz.org>` |
+  | `CONTACT_FROM_EMAIL` | `Web javierruiz.org <contacto@javierruiz.org>` |
   | `NEXT_PUBLIC_GA_ID` | `G-…` |
 
   > Si cambias una variable `NEXT_PUBLIC_…` hay que **volver a desplegar** (se incrusta al compilar).

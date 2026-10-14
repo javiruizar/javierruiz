@@ -49,7 +49,10 @@ export default function PrivacidadPage() {
         <tbody>
           <tr>
             <td>Formulario de contacto y email</td>
-            <td>Nombre, email, web (opcional) y contenido del mensaje</td>
+            <td>
+              Nombre, email, teléfono (opcional, obligatorio si eliges que te contacte por teléfono o WhatsApp), vía
+              de contacto preferida, web (opcional) y contenido del mensaje
+            </td>
             <td>Responder a tu consulta y, si lo pides, preparar una auditoría o propuesta</td>
             <td>Consentimiento (art. 6.1.a RGPD) y medidas precontractuales a petición tuya (art. 6.1.b)</td>
           </tr>
@@ -81,8 +84,12 @@ export default function PrivacidadPage() {
           <strong>Vercel Inc.</strong>: alojamiento de la web.
         </li>
         <li>
-          <strong>Resend (Plus Five Five, Inc.)</strong>: envío de los mensajes del formulario, desde servidores
-          ubicados en la Unión Europea (Irlanda).
+          <strong>Resend (Plus Five Five, Inc.)</strong>: envío de los mensajes del formulario y del email de
+          confirmación que recibes al enviarlo, desde servidores ubicados en la Unión Europea (Irlanda).
+        </li>
+        <li>
+          <strong>WhatsApp Ireland Ltd.</strong>: solo si eliges WhatsApp como vía de contacto, para responderte por
+          ese medio.
         </li>
         <li>
           <strong>Google Ireland Ltd. / Google LLC</strong>:{" "}

@@ -2,16 +2,17 @@
 
 import { headers } from "next/headers";
 import { services } from "@/content/site";
-import type { ContactField, ContactState } from "@/lib/contact";
-import { buildContactEmail } from "@/lib/contact-email";
+import { isContactMethod, needsPhone, type ContactField, type ContactState } from "@/lib/contact";
+import { buildConfirmationEmail, buildContactEmail, type ContactEmailInput } from "@/lib/contact-email";
 
 /**
- * Server Action del formulario de contacto. Envía el mensaje con la API REST de Resend.
+ * Server Action del formulario de contacto. Con la API REST de Resend envía dos emails:
+ * la consulta a Javier y una confirmación al cliente con la vía por la que se le contactará.
  *
- * Variables de entorno (ver .env.example):
+ * Variables de entorno (en .env.local y en Vercel):
  *   RESEND_API_KEY      clave de la API de Resend
  *   CONTACT_TO_EMAIL    buzón que recibe los mensajes
- *   CONTACT_FROM_EMAIL  remitente verificado en Resend (p. ej. "Web javierruiz.org <noreply@javierruiz.org>")
+ *   CONTACT_FROM_EMAIL  remitente verificado en Resend (p. ej. "Web javierruiz.org <contacto@javierruiz.org>")
  */
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
@@ -32,6 +33,25 @@ function isRateLimited(ip: string) {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Dígitos con separadores habituales y "+" inicial opcional; entre 9 y 15 cifras (E.164).
+const PHONE_RE = /^\+?[\d\s().-]+$/;
+
+function isValidPhone(phone: string) {
+  const digits = phone.replace(/\D/g, "").length;
+  return phone.length <= 30 && PHONE_RE.test(phone) && digits >= 9 && digits <= 15;
+}
+
+async function sendEmail(apiKey: string, payload: Record<string, unknown>) {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    console.error("[contacto] Resend respondió", res.status, await res.text());
+    throw new Error(`Resend ${res.status}`);
+  }
+}
 
 function field(formData: FormData, name: string) {
   const value = formData.get(name);
@@ -54,6 +74,8 @@ async function handleContact(formData: FormData): Promise<ContactState> {
     // Campos de una línea: sin saltos de línea (el nombre acaba en el asunto del email).
     name: field(formData, "name").replace(/\s+/g, " "),
     email: field(formData, "email").replace(/\s+/g, ""),
+    phone: field(formData, "phone").replace(/\s+/g, " "),
+    contact_method: field(formData, "contact_method") || "email",
     website: field(formData, "website").replace(/\s+/g, ""),
     service: field(formData, "service"),
     message: field(formData, "message"),
@@ -62,12 +84,18 @@ async function handleContact(formData: FormData): Promise<ContactState> {
   const errors: Partial<Record<ContactField, string>> = {};
   if (values.name.length < 2 || values.name.length > 100) errors.name = "Indica tu nombre.";
   if (!EMAIL_RE.test(values.email) || values.email.length > 200) errors.email = "Introduce un email válido.";
+  if (!isContactMethod(values.contact_method)) {
+    errors.contact_method = "Elige cómo prefieres que te contacte.";
+  } else if (needsPhone(values.contact_method) && !values.phone) {
+    errors.phone = "Indica tu teléfono para poder contactarte por esta vía.";
+  }
+  if (values.phone && !errors.phone && !isValidPhone(values.phone)) errors.phone = "Introduce un teléfono válido.";
   if (values.website.length > 200) errors.website = "La dirección es demasiado larga.";
   if (values.message.length < 10) errors.message = "Cuéntame un poco más (mínimo 10 caracteres).";
   if (values.message.length > 5000) errors.message = "El mensaje es demasiado largo (máximo 5000 caracteres).";
   if (formData.get("privacy") !== "on") errors.privacy = "Debes aceptar la política de privacidad.";
 
-  if (Object.keys(errors).length > 0) {
+  if (Object.keys(errors).length > 0 || !isContactMethod(values.contact_method)) {
     return { status: "error", message: "Revisa los campos marcados.", errors, values };
   }
 
@@ -94,31 +122,19 @@ async function handleContact(formData: FormData): Promise<ContactState> {
   }
 
   const serviceLabel = services.find((s) => s.id === values.service)?.title ?? "Sin especificar";
-  const { subject, text, html } = buildContactEmail({
+  const emailInput: ContactEmailInput = {
     name: values.name,
     email: values.email,
+    phone: values.phone,
+    contactMethod: values.contact_method,
     website: values.website,
     message: values.message,
     serviceLabel,
-  });
+  };
 
+  // 1) La consulta a Javier: si falla, el cliente debe saberlo y reintentar.
   try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: values.email,
-        subject,
-        text,
-        html,
-      }),
-    });
-    if (!res.ok) {
-      console.error("[contacto] Resend respondió", res.status, await res.text());
-      throw new Error(`Resend ${res.status}`);
-    }
+    await sendEmail(apiKey, { from, to: [to], reply_to: values.email, ...buildContactEmail(emailInput) });
   } catch (error) {
     console.error("[contacto] Error al enviar", error);
     return {
@@ -128,9 +144,21 @@ async function handleContact(formData: FormData): Promise<ContactState> {
     };
   }
 
+  // 2) La confirmación al cliente: si falla, la consulta ya ha llegado, así que no se muestra error.
+  //    Sus respuestas van al buzón de Javier (reply_to).
+  let confirmationSent = true;
+  try {
+    await sendEmail(apiKey, { from, to: [values.email], reply_to: to, ...buildConfirmationEmail(emailInput) });
+  } catch (error) {
+    confirmationSent = false;
+    console.error("[contacto] Error al enviar la confirmación al cliente", error);
+  }
+
   return {
     status: "success",
-    message: "¡Gracias! He recibido tu mensaje y te responderé lo antes posible.",
-    values: { service: values.service },
+    message: confirmationSent
+      ? `¡Gracias! He recibido tu mensaje y te he enviado una confirmación a ${values.email}.`
+      : "¡Gracias! He recibido tu mensaje y te responderé lo antes posible.",
+    values: { service: values.service, contact_method: values.contact_method, email: values.email, phone: values.phone },
   };
 }

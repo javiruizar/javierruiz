@@ -310,6 +310,32 @@
 
   .form-input[aria-invalid="true"] { border-color: #f87171; }
 
+  /* Opciones tipo píldora: radio oculto (.peer) + span hermano */
+  .choice-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 48px;
+    padding: 0.5rem;
+    background: var(--color-surface-2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: #c4c4d8;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    transition: border-color var(--transition-base), background var(--transition-base), color var(--transition-base);
+  }
+
+  .choice-pill:hover { border-color: rgba(99, 179, 237, 0.5); }
+  .peer:checked + .choice-pill {
+    border-color: var(--color-primary);
+    background: rgba(59, 130, 246, 0.15);
+    color: #fff;
+  }
+  .peer:focus-visible + .choice-pill { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35); }
+
   /* ─── Legal pages ────────────────────────────────────────────────────────── */
   .legal-content h2 {
     font-size: 1.35rem;

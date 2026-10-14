@@ -1,9 +1,17 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { CheckCircle2, Send } from "lucide-react";
 import { sendContact } from "@/actions/contact";
-import { initialContactState, type ContactField } from "@/lib/contact";
+import {
+  contactMethods,
+  initialContactState,
+  isContactMethod,
+  needsPhone,
+  type ContactField,
+  type ContactMethod,
+  type ContactState,
+} from "@/lib/contact";
 import { services } from "@/content/site";
 import { trackEvent } from "@/lib/analytics";
 
@@ -16,6 +24,7 @@ export function ContactForm() {
     trackEvent("generate_lead", {
       form_id: "contacto",
       service: state.values?.service || "sin_especificar",
+      contact_method: state.values?.contact_method || "email",
     });
   }, [state]);
 
@@ -25,7 +34,7 @@ export function ContactForm() {
         <CheckCircle2 size={40} className="text-emerald-400" aria-hidden="true" />
         <p className="text-lg font-semibold">{state.message}</p>
         <p className="text-sm" style={{ color: "#a0a0be" }}>
-          Suelo contestar en uno o dos días laborables.
+          {successFollowUp(state)}
         </p>
       </div>
     );
@@ -92,6 +101,13 @@ export function ContactForm() {
           {errorText("email")}
         </div>
       </div>
+
+      <ContactMethodFields
+        initialMethod={values.contact_method}
+        initialPhone={values.phone}
+        fieldProps={fieldProps}
+        errorText={errorText}
+      />
 
       <div className="grid md:grid-cols-2 gap-5">
         <div>
@@ -170,5 +186,81 @@ export function ContactForm() {
         <Send size={15} aria-hidden="true" />
       </button>
     </form>
+  );
+}
+
+/** "Te contactaré por WhatsApp al +34 600 000 000 en uno o dos días laborables." */
+function successFollowUp(state: ContactState) {
+  const method = state.values?.contact_method;
+  if (!method || !isContactMethod(method)) return "Suelo contestar en uno o dos días laborables.";
+  const { inSentence } = contactMethods.find((m) => m.id === method)!;
+  const target = method === "email" ? `a ${state.values?.email}` : `al ${state.values?.phone}`;
+  return `Te contactaré ${inSentence} ${target} en uno o dos días laborables.`;
+}
+
+type FieldProps = (name: ContactField) => Record<string, unknown>;
+
+/**
+ * Teléfono + vía de contacto preferida. Va en su propio componente para que el estado
+ * se reinicie con el formulario (que se vuelve a montar en cada intento).
+ */
+function ContactMethodFields({
+  initialMethod,
+  initialPhone,
+  fieldProps,
+  errorText,
+}: {
+  initialMethod?: string;
+  initialPhone?: string;
+  fieldProps: FieldProps;
+  errorText: (name: ContactField) => React.ReactNode;
+}) {
+  const [method, setMethod] = useState<ContactMethod>(
+    initialMethod && isContactMethod(initialMethod) ? initialMethod : "email"
+  );
+  const phoneRequired = needsPhone(method);
+
+  return (
+    <div className="grid md:grid-cols-2 gap-5">
+      <fieldset
+        aria-describedby={fieldProps("contact_method")["aria-describedby"] as string | undefined}
+      >
+        <legend className="form-label">¿Cómo prefieres que te conteste?</legend>
+        <div className="grid grid-cols-3 gap-2">
+          {contactMethods.map((m) => (
+            <label key={m.id} className="relative cursor-pointer">
+              <input
+                type="radio"
+                name="contact_method"
+                value={m.id}
+                checked={method === m.id}
+                onChange={() => setMethod(m.id)}
+                className="peer sr-only"
+              />
+              <span className="choice-pill">{m.label}</span>
+            </label>
+          ))}
+        </div>
+        {errorText("contact_method")}
+      </fieldset>
+      <div>
+        <label htmlFor="contact-phone" className="form-label">
+          Teléfono{" "}
+          {phoneRequired ? "*" : <span style={{ color: "#8b8ba7" }}>(opcional)</span>}
+        </label>
+        <input
+          {...fieldProps("phone")}
+          type="tel"
+          required={phoneRequired}
+          maxLength={30}
+          autoComplete="tel"
+          inputMode="tel"
+          placeholder="600 000 000"
+          defaultValue={initialPhone}
+          className="form-input"
+        />
+        {errorText("phone")}
+      </div>
+    </div>
   );
 }

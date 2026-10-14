@@ -67,7 +67,7 @@ Estado: **Fase 1 — lista para subir a GitHub y desplegar (§1.7 y DESPLIEGUE.m
 - [x] Corregido un fallo de CSS: el CSS propio estaba fuera de `@layer` y anulaba las utilidades de Tailwind (paddings y márgenes).
 - [x] Inter vía `next/font` (autoalojada).
 - [x] `public/` limpio. Foto en `images/javier-ruiz.jpeg` (next/image lo sirve en AVIF/WebP). Favicon SVG e icono de Apple propios "JR".
-- [x] Cabeceras de seguridad, redirección `www` → raíz, 404 propia y `.env.example`.
+- [x] Cabeceras de seguridad, redirección `www` → raíz, 404 propia. (`.env.example` se eliminó después: las variables están documentadas en el README.)
 
 ### 1.2 Contenido veraz ✅
 - [x] Bloque de estadísticas eliminado (B3).
@@ -109,7 +109,7 @@ Estado: **Fase 1 — lista para subir a GitHub y desplegar (§1.7 y DESPLIEGUE.m
 - [ ] Introducir el ID real de GA4 (lo haces tú: `.env.local` y Vercel).
 
 ### 1.9 Preparación para GitHub ✅
-- [x] Resend verificado (región Irlanda, reflejada en la política de privacidad); remitente `noreply@javierruiz.org`; clave solo de envío en `.env.local` (ignorado por git).
+- [x] Resend verificado (región Irlanda, reflejada en la política de privacidad); remitente `contacto@javierruiz.org`; clave solo de envío en `.env.local` (ignorado por git).
 - [x] Prueba de envío real realizada (pendiente de que confirmes que llegó a Gmail).
 - [x] Next 16.3.4 → **16.4.0**: corrige una vulnerabilidad crítica en `next/og`. `npm audit` de producción: 0 vulnerabilidades (las restantes son de herramientas de desarrollo: ESLint).
 - [x] Revisión de lo que entra en el commit: sin secretos; `.env.local`, `.next`, `node_modules` e `.idea` ignorados.
