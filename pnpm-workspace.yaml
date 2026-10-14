@@ -1,0 +1,10 @@
+# Seguridad de la cadena de suministro (pnpm ≥ 10.16)
+# No instalar versiones publicadas hace menos de 24 h: da margen a que se
+# detecte y retire un paquete comprometido antes de que llegue aquí.
+minimumReleaseAge: 1440
+
+# Scripts de instalación: bloqueados salvo los que se aprueben aquí.
+# unrs-resolver (lo usa ESLint) solo descarga un binario si falta el
+# precompilado para tu plataforma, y pnpm ya lo instala; no hace falta.
+allowBuilds:
+  unrs-resolver: false
