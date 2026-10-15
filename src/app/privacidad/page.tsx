@@ -50,7 +50,7 @@ export default function PrivacidadPage() {
           <tr>
             <td>Formulario de contacto y email</td>
             <td>
-              Nombre, email, teléfono (opcional, obligatorio si eliges que te contacte por teléfono o WhatsApp), vía
+              Nombre, email, teléfono (opcional, obligatorio si eliges que te contactemos por teléfono o WhatsApp), vía
               de contacto preferida, web (opcional) y contenido del mensaje
             </td>
             <td>Responder a tu consulta y, si lo pides, preparar una auditoría o propuesta</td>

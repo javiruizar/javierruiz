@@ -149,7 +149,7 @@ export function ContactForm() {
           rows={5}
           minLength={10}
           maxLength={5000}
-          placeholder="Cuéntame a qué se dedica tu negocio y qué te gustaría conseguir."
+          placeholder="Cuéntanos a qué se dedica tu negocio y qué te gustaría conseguir."
           defaultValue={values.message}
           className="form-input resize-y"
         />
@@ -189,13 +189,13 @@ export function ContactForm() {
   );
 }
 
-/** "Te contactaré por WhatsApp al +34 600 000 000 en uno o dos días laborables." */
+/** "Te contactaremos por WhatsApp al +34 600 000 000 en uno o dos días laborables." */
 function successFollowUp(state: ContactState) {
   const method = state.values?.contact_method;
-  if (!method || !isContactMethod(method)) return "Suelo contestar en uno o dos días laborables.";
+  if (!method || !isContactMethod(method)) return "Solemos contestar en uno o dos días laborables.";
   const { inSentence } = contactMethods.find((m) => m.id === method)!;
   const target = method === "email" ? `a ${state.values?.email}` : `al ${state.values?.phone}`;
-  return `Te contactaré ${inSentence} ${target} en uno o dos días laborables.`;
+  return `Te contactaremos ${inSentence} ${target} en uno o dos días laborables.`;
 }
 
 type FieldProps = (name: ContactField) => Record<string, unknown>;
@@ -225,7 +225,7 @@ function ContactMethodFields({
       <fieldset
         aria-describedby={fieldProps("contact_method")["aria-describedby"] as string | undefined}
       >
-        <legend className="form-label">¿Cómo prefieres que te conteste?</legend>
+        <legend className="form-label">¿Cómo prefieres que te contestemos?</legend>
         <div className="grid grid-cols-3 gap-2">
           {contactMethods.map((m) => (
             <label key={m.id} className="relative cursor-pointer">

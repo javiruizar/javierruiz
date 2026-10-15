@@ -91,16 +91,16 @@ function HeroSection() {
           className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.08] mb-6"
           style={{ letterSpacing: "-0.03em" }}
         >
-          Diseño web y SEO en Pozoblanco para que tu negocio{" "}
-          <span className="gradient-text">aparezca en Google</span>
+          Diseño web y SEO en Pozoblanco para impulsar la{" "}
+          <span className="gradient-text">visibilidad digital</span> de tu negocio
         </h1>
 
         <p
           className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto animate-fade-in-up delay-200"
           style={{ color: "var(--color-muted)" }}
         >
-          Creo webs rápidas, posiciono tu negocio en el buscador y en Google Maps y gestiono tu ficha de
-          Google Business. También me ocupo del dominio, el hosting y el mantenimiento:{" "}
+          Creamos webs profesionales, posicionamos tu negocio en el buscador y en Google Maps y gestionamos tu ficha
+          de Google Business. También nos ocupamos del dominio, el hosting y el mantenimiento:{" "}
           <strong className="text-blue-300 font-semibold">tú te centras en tu negocio</strong>.
         </p>
 
@@ -116,7 +116,7 @@ function HeroSection() {
 
         <ul
           className="flex flex-wrap items-center justify-center gap-3 mt-12 animate-fade-in-up delay-500"
-          aria-label="Especialista en el ecosistema de Google"
+          aria-label="Especialistas en el ecosistema de Google"
         >
           {googleStack.map((item) => (
             <li key={item} className="tech-tag">
@@ -195,9 +195,9 @@ function ServicesSection() {
           className="reveal mt-10 text-center text-sm max-w-3xl mx-auto leading-relaxed"
           style={{ color: "var(--color-muted)" }}
         >
-          <strong className="text-white font-semibold">Especialista en el ecosistema de Google.</strong> Mi trabajo se
-          centra en el buscador, Google Maps, Business Profile, Search Console y Analytics. No gestiono redes
-          sociales: me dedico por completo al canal por el que la mayoría de clientes encuentran un negocio.
+          <strong className="text-white font-semibold">Especialistas en el ecosistema de Google.</strong> Nuestro trabajo
+          se centra en el buscador, Google Maps, Business Profile, Search Console y Analytics. No gestionamos redes
+          sociales: nos dedicamos por completo al canal por el que la mayoría de clientes encuentran un negocio.
         </p>
       </div>
     </section>
@@ -207,16 +207,16 @@ function ServicesSection() {
 function ProcessSection() {
   return (
     <section
-      id="como-trabajo"
+      id="como-trabajamos"
       className="py-24 px-6 relative"
-      aria-labelledby="como-trabajo-heading"
+      aria-labelledby="como-trabajamos-heading"
       style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59,130,246,0.05), transparent)" }}
     >
       <div className="max-w-6xl mx-auto">
         <SectionHeader
-          tag="Cómo trabajo"
+          tag="Cómo trabajamos"
           icon={<ListChecks size={12} aria-hidden="true" />}
-          id="como-trabajo-heading"
+          id="como-trabajamos-heading"
           title="Un proceso claro,"
           highlight="de principio a fin"
           intro="Sin tecnicismos ni sorpresas: sabes en cada momento qué se está haciendo y por qué."
@@ -257,7 +257,7 @@ function AboutSection() {
   ];
 
   return (
-    <section id="sobre-mi" className="py-24 px-6" aria-labelledby="sobre-mi-heading">
+    <section id="sobre-nosotros" className="py-24 px-6" aria-labelledby="sobre-nosotros-heading">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         <div className="reveal flex flex-col items-center md:items-start gap-8">
           <div className="avatar-ring">
@@ -292,24 +292,24 @@ function AboutSection() {
         <div className="reveal" style={{ transitionDelay: "150ms" }}>
           <div className="section-tag mb-6">
             <Star size={12} aria-hidden="true" />
-            Sobre mí
+            Sobre nosotros
           </div>
 
-          <h2 id="sobre-mi-heading" className="text-4xl font-bold tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
+          <h2 id="sobre-nosotros-heading" className="text-4xl font-bold tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
             Ingeniería al servicio de <span className="gradient-text">tu crecimiento</span>
           </h2>
 
           <div className="flex flex-col gap-5 text-base leading-relaxed" style={{ color: "#a0a0be" }}>
             <p>
-              Soy <strong className="text-white">Javier Ruiz Arroyo</strong>, ingeniero de datos y desarrollador web
-              en Pozoblanco (Córdoba). Ayudo a negocios y profesionales a conseguir clientes a través de Google: con
-              una web rápida y bien construida, un buen posicionamiento en el buscador y una ficha de Google Business
-              cuidada.
+              Somos un equipo de Pozoblanco (Córdoba) que ayuda a negocios y profesionales a conseguir clientes a
+              través de Google: con una web rápida y bien construida, un buen posicionamiento en el buscador y una
+              ficha de Google Business cuidada. Al frente está <strong className="text-white">Javier Ruiz Arroyo</strong>,
+              ingeniero de datos y desarrollador web.
             </p>
             <p>
-              Mi formación en datos marca la forma de trabajar: cada decisión se basa en métricas reales de Search
-              Console y Analytics, no en intuiciones. Me centro exclusivamente en el{" "}
-              <strong className="text-blue-300">ecosistema de Google</strong> y me encargo también de la parte
+              Nuestra formación en datos marca la forma de trabajar: cada decisión se basa en métricas reales de
+              Search Console y Analytics, no en intuiciones. Nos centramos exclusivamente en el{" "}
+              <strong className="text-blue-300">ecosistema de Google</strong> y nos encargamos también de la parte
               técnica que suele dar dolores de cabeza: dominio, hosting, correo y mantenimiento.
             </p>
             <p>
@@ -383,7 +383,7 @@ function ContactSection() {
           id="contacto-heading"
           title="¿Hablamos de"
           highlight="tu negocio?"
-          intro="Cuéntame qué haces y qué quieres conseguir. Te propongo una auditoría inicial gratuita de tu web y tu presencia en Google, sin compromiso."
+          intro="Cuéntanos qué haces y qué quieres conseguir. Te proponemos una auditoría inicial gratuita de tu web y tu presencia en Google, sin compromiso."
         />
 
         <div className="reveal">
@@ -391,7 +391,7 @@ function ContactSection() {
         </div>
 
         <p className="reveal mt-8 text-center text-sm" style={{ color: "var(--color-muted)" }}>
-          ¿Prefieres el email? Escríbeme a{" "}
+          ¿Prefieres el email? Escríbenos a{" "}
           <a href={`mailto:${site.email}`} className="text-blue-400 font-medium underline underline-offset-4 hover:text-blue-300">
             {site.email}
           </a>

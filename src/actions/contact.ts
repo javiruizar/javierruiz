@@ -67,7 +67,7 @@ export async function sendContact(prev: ContactState, formData: FormData): Promi
 async function handleContact(formData: FormData): Promise<ContactState> {
   // Honeypot: los humanos no ven este campo; si viene relleno, se finge éxito.
   if (field(formData, "company_website")) {
-    return { status: "success", message: "¡Gracias! Te responderé lo antes posible." };
+    return { status: "success", message: "¡Gracias! Te responderemos lo antes posible." };
   }
 
   const values = {
@@ -85,13 +85,13 @@ async function handleContact(formData: FormData): Promise<ContactState> {
   if (values.name.length < 2 || values.name.length > 100) errors.name = "Indica tu nombre.";
   if (!EMAIL_RE.test(values.email) || values.email.length > 200) errors.email = "Introduce un email válido.";
   if (!isContactMethod(values.contact_method)) {
-    errors.contact_method = "Elige cómo prefieres que te contacte.";
+    errors.contact_method = "Elige cómo prefieres que te contactemos.";
   } else if (needsPhone(values.contact_method) && !values.phone) {
     errors.phone = "Indica tu teléfono para poder contactarte por esta vía.";
   }
   if (values.phone && !errors.phone && !isValidPhone(values.phone)) errors.phone = "Introduce un teléfono válido.";
   if (values.website.length > 200) errors.website = "La dirección es demasiado larga.";
-  if (values.message.length < 10) errors.message = "Cuéntame un poco más (mínimo 10 caracteres).";
+  if (values.message.length < 10) errors.message = "Cuéntanos un poco más (mínimo 10 caracteres).";
   if (values.message.length > 5000) errors.message = "El mensaje es demasiado largo (máximo 5000 caracteres).";
   if (formData.get("privacy") !== "on") errors.privacy = "Debes aceptar la política de privacidad.";
 
@@ -116,7 +116,7 @@ async function handleContact(formData: FormData): Promise<ContactState> {
     console.error("[contacto] Faltan variables de entorno RESEND_API_KEY / CONTACT_TO_EMAIL / CONTACT_FROM_EMAIL");
     return {
       status: "error",
-      message: "El formulario no está disponible ahora mismo. Escríbeme directamente por email.",
+      message: "El formulario no está disponible ahora mismo. Escríbenos directamente por email.",
       values,
     };
   }
@@ -139,7 +139,7 @@ async function handleContact(formData: FormData): Promise<ContactState> {
     console.error("[contacto] Error al enviar", error);
     return {
       status: "error",
-      message: "No se ha podido enviar el mensaje. Inténtalo de nuevo o escríbeme por email.",
+      message: "No se ha podido enviar el mensaje. Inténtalo de nuevo o escríbenos por email.",
       values,
     };
   }
@@ -157,8 +157,8 @@ async function handleContact(formData: FormData): Promise<ContactState> {
   return {
     status: "success",
     message: confirmationSent
-      ? `¡Gracias! He recibido tu mensaje y te he enviado una confirmación a ${values.email}.`
-      : "¡Gracias! He recibido tu mensaje y te responderé lo antes posible.",
+      ? `¡Gracias! Hemos recibido tu mensaje y te hemos enviado una confirmación a ${values.email}.`
+      : "¡Gracias! Hemos recibido tu mensaje y te responderemos lo antes posible.",
     values: { service: values.service, contact_method: values.contact_method, email: values.email, phone: values.phone },
   };
 }

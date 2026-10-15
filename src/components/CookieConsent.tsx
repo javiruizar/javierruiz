@@ -113,7 +113,7 @@ gtag('config', '${GA_ID}');`}
             Cookies
           </h2>
           <p id="cookie-desc" className="text-sm leading-relaxed mb-5" style={{ color: "#a0a0be" }}>
-            Uso cookies de Google Analytics solo si las aceptas, para saber cuántas personas visitan la
+            Usamos cookies de Google Analytics solo si las aceptas, para saber cuántas personas visitan la
             web y mejorarla. No hay cookies publicitarias.{" "}
             <a href="/cookies" className="underline underline-offset-2 text-blue-400 hover:text-blue-300">
               Más información sobre cookies

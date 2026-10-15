@@ -25,7 +25,7 @@ Se usa **pnpm** (versión fijada en `package.json` → `packageManager`). La con
 | `src/app/{sitemap,robots,manifest}.ts`, `opengraph-image.tsx`, `icon.svg`, `apple-icon.tsx` | SEO técnico e iconos generados. |
 | `src/actions/contact.ts` | Server Action del formulario (validación, honeypot, límite de envíos y envío con Resend: consulta a Javier + confirmación al cliente). Plantillas en `src/lib/contact-email.ts`. |
 | `src/components/` | Navbar, Footer, ContactForm, CookieConsent (+GA4), RevealObserver, JsonLd… |
-| `public/images/javier-ruiz.jpeg` | Foto del apartado «Sobre mí» (cuadrada; ideal ≥ 448 px para pantallas retina). |
+| `public/images/javier-ruiz.jpeg` | Foto del apartado «Sobre nosotros» (cuadrada; ideal ≥ 448 px para pantallas retina). |
 
 ## Variables de entorno
 

@@ -11,6 +11,8 @@ export const site = {
   nif: null as string | null,
   email: "javiruizar@gmail.com",
   jobTitle: "Ingeniero de datos y desarrollador web",
+  // Firma de marca (emails): el sitio habla en plural, como equipo.
+  tagline: "Desarrollo web, SEO y Google Business",
   photo: "/images/javier-ruiz.jpeg",
   location: {
     locality: "Pozoblanco",
@@ -33,8 +35,8 @@ export const site = {
 
 export const navLinks = [
   { href: "/#servicios", label: "Servicios" },
-  { href: "/#como-trabajo", label: "Cómo trabajo" },
-  { href: "/#sobre-mi", label: "Sobre mí" },
+  { href: "/#como-trabajamos", label: "Cómo trabajamos" },
+  { href: "/#sobre-nosotros", label: "Sobre nosotros" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contacto", label: "Contacto" },
 ] as const;
@@ -55,7 +57,7 @@ export const services: Service[] = [
     title: "Desarrollo web y gestión integral",
     tag: "Llave en mano",
     description:
-      "Webs a medida, rápidas y pensadas para convertir visitas en clientes. Además me encargo de todo lo técnico que hay alrededor: dominio, hosting, certificados, correo profesional y mantenimiento, para que tú no tengas que preocuparte de nada.",
+      "Webs a medida, rápidas y pensadas para convertir visitas en clientes. Además nos encargamos de todo lo técnico que hay alrededor: dominio, hosting, certificados, correo profesional y mantenimiento, para que tú no tengas que preocuparte de nada.",
     features: [
       "Webs a medida que se ven perfectas en el móvil",
       "Carga en menos de 2,5 segundos: nadie se va esperando",
@@ -98,7 +100,7 @@ export const processSteps = [
   {
     title: "Auditoría gratuita",
     description:
-      "Analizo tu web, tu ficha de Google y a tu competencia en el buscador. Te entrego un diagnóstico con las prioridades, sin compromiso.",
+      "Analizamos tu web, tu ficha de Google y a tu competencia en el buscador. Te entregamos un diagnóstico con las prioridades, sin compromiso.",
   },
   {
     title: "Propuesta clara",
@@ -108,30 +110,30 @@ export const processSteps = [
   {
     title: "Desarrollo y optimización",
     description:
-      "Construyo, optimizo y configuro todo: web, dominio, hosting, Search Console, Analytics y ficha de Google Business.",
+      "Construimos, optimizamos y configuramos todo: web, dominio, hosting, Search Console, Analytics y ficha de Google Business.",
   },
   {
     title: "Lanzamiento y seguimiento",
     description:
-      "Publicamos y mido la evolución con datos reales de Google para seguir mejorando mes a mes.",
+      "Publicamos y medimos la evolución con datos reales de Google para seguir mejorando mes a mes.",
   },
 ];
 
 export const faqs = [
   {
-    question: "¿Trabajas solo en Pozoblanco?",
+    question: "¿Trabajáis solo en Pozoblanco?",
     answer:
-      "Mi base está en Pozoblanco (Córdoba). Atiendo en persona en el Valle de los Pedroches y la provincia de Córdoba, y trabajo en remoto con negocios de toda España.",
+      "Nuestra base está en Pozoblanco (Córdoba). Atendemos en persona en el Valle de los Pedroches y la provincia de Córdoba, y trabajamos en remoto con negocios de toda España.",
   },
   {
-    question: "¿Gestionas redes sociales?",
+    question: "¿Gestionáis redes sociales?",
     answer:
-      "No. Me especializo en el ecosistema de Google: buscador, Google Maps, Business Profile, Search Console y Analytics. Prefiero dominar a fondo el canal por el que la mayoría de clientes encuentran un negocio.",
+      "No. Nos especializamos en el ecosistema de Google: buscador, Google Maps, Business Profile, Search Console y Analytics. Preferimos dominar a fondo el canal por el que la mayoría de clientes encuentran un negocio.",
   },
   {
-    question: "¿Te encargas del dominio, el hosting y el correo?",
+    question: "¿Os encargáis del dominio, el hosting y el correo?",
     answer:
-      "Sí. Puedo registrar o trasladar tu dominio, alojar la web, configurar el correo profesional y el certificado SSL, y ocuparme del mantenimiento y las copias de seguridad.",
+      "Sí. Podemos registrar o trasladar tu dominio, alojar la web, configurar el correo profesional y el certificado SSL, y ocuparnos del mantenimiento y las copias de seguridad.",
   },
   {
     question: "¿Qué incluye la auditoría gratuita?",
@@ -146,6 +148,6 @@ export const faqs = [
   {
     question: "¿La web será de mi propiedad?",
     answer:
-      "Sí. El dominio se registra a tu nombre y el código y los contenidos son tuyos. Si algún día quieres cambiar de proveedor, te lo entrego todo.",
+      "Sí. El dominio se registra a tu nombre y el código y los contenidos son tuyos. Si algún día quieres cambiar de proveedor, te lo entregamos todo.",
   },
 ];

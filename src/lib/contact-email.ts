@@ -190,8 +190,8 @@ export function buildConfirmationEmail(input: ContactEmailInput) {
   const text = [
     `Hola, ${firstName}:`,
     "",
-    "Gracias por escribirme. He recibido tu consulta y la revisaré personalmente.",
-    `Me pondré en contacto contigo ${phrase} lo antes posible, normalmente en uno o dos días laborables.`,
+    "Gracias por escribirnos. Hemos recibido tu consulta y la revisaremos personalmente.",
+    `Nos pondremos en contacto contigo ${phrase} lo antes posible, normalmente en uno o dos días laborables.`,
     "",
     "Resumen de tu consulta",
     `Servicio: ${input.serviceLabel}`,
@@ -204,8 +204,8 @@ export function buildConfirmationEmail(input: ContactEmailInput) {
     "¿Quieres añadir información adicional? Responde directamente a este email (botón «Responder») en lugar de escribir un correo nuevo: así tu mensaje quedará unido a tu consulta.",
     "",
     `Un saludo,`,
-    `${site.name}`,
-    `${site.jobTitle} · ${site.location.locality} (${site.location.region})`,
+    `El equipo de ${site.name}`,
+    `${site.tagline} · ${site.location.locality} (${site.location.region})`,
     site.url,
     "",
     "Recibes este correo porque se ha enviado el formulario de contacto de javierruiz.org con esta dirección. Si no has sido tú, puedes ignorarlo.",
@@ -217,10 +217,10 @@ export function buildConfirmationEmail(input: ContactEmailInput) {
     body: `
         <p style="margin:0 0 12px;color:#111827;font-size:15px;line-height:1.6">Hola, ${escapeHtml(firstName)}:</p>
         <p style="margin:0 0 12px;color:#111827;font-size:15px;line-height:1.6">
-          Gracias por escribirme. He recibido tu consulta y la revisaré personalmente.
+          Gracias por escribirnos. Hemos recibido tu consulta y la revisaremos personalmente.
         </p>
         <div style="margin:16px 0;padding:12px 16px;background:#eff6ff;border-radius:8px;color:#1e3a8a;font-size:15px;line-height:1.6">
-          Me pondré en contacto contigo <strong>${escapeHtml(phrase)}</strong> lo antes posible, normalmente en uno o dos días laborables.
+          Nos pondremos en contacto contigo <strong>${escapeHtml(phrase)}</strong> lo antes posible, normalmente en uno o dos días laborables.
         </div>
         <div style="margin-top:24px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#6b7280">Resumen de tu consulta</div>
         <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:8px">
@@ -236,8 +236,8 @@ export function buildConfirmationEmail(input: ContactEmailInput) {
         </div>
         <p style="margin:20px 0 0;color:#111827;font-size:15px;line-height:1.6">
           Un saludo,<br>
-          <strong>${escapeHtml(site.name)}</strong><br>
-          <span style="color:#6b7280;font-size:13px">${escapeHtml(site.jobTitle)} · ${escapeHtml(site.location.locality)} (${escapeHtml(site.location.region)})</span><br>
+          <strong>El equipo de ${escapeHtml(site.name)}</strong><br>
+          <span style="color:#6b7280;font-size:13px">${escapeHtml(site.tagline)} · ${escapeHtml(site.location.locality)} (${escapeHtml(site.location.region)})</span><br>
           <a href="${site.url}" style="color:#2563eb;font-size:13px">${site.url.replace(/^https?:\/\//, "")}</a>
         </p>`,
     footer:
